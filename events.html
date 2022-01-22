@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-3SED2G3FMW"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-3SED2G3FMW");
+    </script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="./img/favicon.ico"
+      type="image/x-icon"
+      sizes="16x16"
+    />
+    <!-- Primary Meta Tags -->
+    <title>EDC IIESTS</title>
+    <meta name="title" content="EDC IIESTS" />
+    <meta
+      name="description"
+      content=""
+    />
+    
+    <!-- CSS only -->
+    <link rel="stylesheet" href="./css/contact.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/events_card.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <!-- Fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <title>EDC-IIESTS</title>
+  </head>
+
+  <body>
+    <div class="main">
+     
+      <!-- Main Body Section with content-->
+
+      <div class="container text-center" style="margin-top: 6.5rem">
+        <div class="row">
+          <h1>Our Major Events</h1>
+        </div>
+      </div>
+
+      <div class="container" id="event_space"></div>
+
+      <script type="text/javascript">
+        fetch("events.json")
+          .then((res) => res.json())
+          .then((data) => {
+            // Getting data
+            var Data = data.events;
+            for (var i = 0; i < Data.length; i++) {
+              var box = document.createElement("div");
+              box.setAttribute("class", "box");
+
+              var html = `<div class="project__card mb-5" style="box-shadow:  0 8px 16px 0 rgba(0, 0, 0, 0.3);">
+                        <div class="row tiles g-0">
+                        <div
+                            class="project__image col-lg-5 col-12"
+                                        >
+                            <img
+                            src=${"./img/events/" + Data[i].image}
+                            alt="zealicon"
+                            class="image_tile"
+                            />
+                        </div>
+                        <div class="project__content col-lg-7 p-5 col-12">
+                            <h3 class="mb-3">${Data[i].name}</h3>
+                            <p class="mb-2" id=${"data" + Data[i].count}>
+                            ${Data[i].short}
+                            </p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=${
+                              "#modal" + Data[i].count
+                            } style="margin-top: 20px;">
+                                Learn More
+                            </button>
+                            ${
+                              Data[i].register
+                                ? `<a href="/register" class="btn btn-primary" style="margin-top: 20px; margin-left: 2rem">
+                                          Register Now
+                                        </a>`
+                                : ""
+                            }
+                            
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id=${
+                      "modal" + Data[i].count
+                    } tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 999999;">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">${
+                                  Data[i].name
+                                }</h5>
+
+                                <button type="button" class="remove" data-bs-dismiss="modal" aria-label="Close" style="border: 0; background: white;"><i class="fa fa-remove fawesome" aria-hidden="true" style="font-size: 1.6rem"></i></button>
+                                </div>
+                            <div class="modal-body">
+                                    <h6 class="modal_info">${
+                                      Data[i].register
+                                        ? `Event Date:  ${Data[i].date}`
+                                        : ""
+                                    }</h6>
+                                    <p class="modal_info">${
+                                      Data[i].description
+                                    }</p>
+                                    
+                                    <img src=${
+                                      "./img/events/" + Data[i].image
+                                    } alt="" class="modal_img">
+                                    ${
+                                      Data[i].register
+                                        ? `<a href="/register" class="btn btn-primary" style="margin-top: 20px; font-size: 1.5rem">
+                                          Register Now
+                                        </a>`
+                                        : ""
+                                    }
+                                    
+                                </div>
+                            </div>
+                            </div>
+                        </div>`;
+
+              box.innerHTML = html;
+              document.getElementById("event_space").appendChild(box);
+            }
+          });
+      </script>
+      <!-- Main Body Section with content ends --!>
+  <!-- JavaScript Bundle with Popper -->
+  <script src="./js/contact.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-2.2.0.min.js"
+    type="text/javascript"
+  ></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</html>
